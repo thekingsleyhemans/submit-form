@@ -21,6 +21,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [userExists, setUserExists] = useState(false);
+  const [animationClass, setAnimationClass] = useState('');
 
   useEffect(() => {
     const checkUserExists = async () => {
@@ -62,11 +63,19 @@ function App() {
   };
 
   const nextStep = () => {
-    setStep(step + 1);
+    setAnimationClass('slide-in');
+    setTimeout(() => {
+      setStep(step + 1);
+      setAnimationClass('');
+    }, 500);
   };
 
   const prevStep = () => {
-    setStep(step - 1);
+    setAnimationClass('slide-out');
+    setTimeout(() => {
+      setStep(step - 1);
+      setAnimationClass('');
+    }, 500);
   };
 
   const handleSubmit = async (e) => {
@@ -147,7 +156,7 @@ function App() {
       <h1 className="headertext">Submission Form</h1>
       <form onSubmit={handleSubmit}>
         {step === 1 && (
-          <div className="form-group">
+          <div className={`form-group ${animationClass}`}>
             <label htmlFor="artistName">Artist Name</label>
             <input type="text" id="artistName" name="artistName" value={formData.artistName} onChange={handleChange} />
             <label htmlFor="artistEmail">Artist Email</label>
@@ -158,7 +167,7 @@ function App() {
           </div>
         )}
         {!userExists && step === 2 && (
-          <div className="form-group">
+          <div className={`form-group ${animationClass}`}>
             <label htmlFor="artistImage">Artist Image <sup>*For new applicants only</sup></label>
             <input type="file" id="artistImage" name="artistImage" onChange={handleFileChange} />
             <label htmlFor="artistPortfolioLink">Artist Portfolio Link <sup>*For new applicants only</sup></label>
@@ -172,7 +181,7 @@ function App() {
           </div>
         )}
         {step === 3 && (
-          <div className="form-group">
+          <div className={`form-group ${animationClass}`}>
             <label htmlFor="artworkImage">Artwork Image</label>
             <input type="file" id="artworkImage" name="artworkImage" onChange={handleFileChange} />
             <label htmlFor="artworkTitle">Artwork Title</label>
@@ -186,7 +195,7 @@ function App() {
           </div>
         )}
         {step === 4 && (
-          <div className="form-group">
+          <div className={`form-group ${animationClass}`}>
             <label htmlFor="artworkCategory">Artwork Category</label>
             <input type="text" id="artworkCategory" name="artworkCategory" value={formData.artworkCategory} onChange={handleChange} />
             <label htmlFor="artworkPrice">Artwork Price</label>

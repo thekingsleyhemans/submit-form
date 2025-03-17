@@ -32,6 +32,9 @@ form{
 
 .form-group {
   margin-bottom: 20px;
+  position: absolute;
+  width: 100%;
+  transition: transform 0.5s ease-in-out;
 }
 
 label {
@@ -135,4 +138,30 @@ p{
 .checkmark {
   font-size: 40px;
   color: rgb(44, 160, 44);
+}
+
+.slide-in {
+  animation: slideIn 0.5s forwards;
+}
+
+.slide-out {
+  animation: slideOut 0.5s forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
 }
