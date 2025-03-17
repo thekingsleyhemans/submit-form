@@ -119,11 +119,15 @@ p{
 .modal-content {
   padding: 20px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .loader {
   border: 4px solidrgba(243, 243, 243, 0);
-  border-top: 4px solid #007bff;
+  border-top: 4px solid #19b90b;
   border-radius: 50%;
   width: 40px;
   height: 40px;
