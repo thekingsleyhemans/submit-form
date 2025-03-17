@@ -143,11 +143,11 @@ p{
 }
 
 .slide-in {
-  animation: slideIn 0.5s forwards;
+  animation: slideIn 0.5s ease-in-out forwards;
 }
 
 .slide-out {
-  animation: slideOut 0.5s forwards;
+  animation: slideOut 0.5s ease-in-out forwards;
 }
 
 @keyframes slideIn {
