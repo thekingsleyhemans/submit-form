@@ -127,8 +127,26 @@ p{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 80%;
+  max-width: 550px;
 }
-
+.modal-content h2{
+  color: #f3f3f3;
+  font-weight: 400;
+}
+.agreement-check{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.tnc{
+  font-weight: 300;
+  font-size: 1rem;
+}
+.check-check{
+  width: fit-content !important;
+}
 .loader {
   border: 4px solidrgba(243, 243, 243, 0);
   border-top: 4px solid #19b90b;
@@ -136,6 +154,10 @@ p{
   width: 40px;
   height: 40px;
   animation: spin 1s linear infinite;
+}
+.agreement-text{
+  text-align: left;
+  font-weight: 300;
 }
 
 @keyframes spin {
