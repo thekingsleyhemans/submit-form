@@ -63,6 +63,10 @@ input, textarea {
   outline: none;
   border: 0px;
   background-color: #3d3c3c;
+  color: #f3f3f3;
+  font-family: 'Barlow', sans-serif;
+  font-weight: 400;
+  font-size: 1.1rem;
 }
 input[type="file" i]{
     background-color: transparent !important;
@@ -110,7 +114,7 @@ p{
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(2, 2, 2, 0.61);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -168,4 +172,60 @@ p{
   to {
     transform: translateX(-100%);
   }
+}
+
+.dropzone {
+  border: 2px dashed #ccc;
+  border-radius: 4px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+.dropzone p {
+  margin: 0;
+  font-size: 1rem;
+  color: #ccc;
+  transition: text-decoration 0.2s ease-in-out;
+}
+.dropzone p:hover{
+  text-decoration: underline;
+}
+
+.file-preview {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 2px;
+  background-color: #2f2f2f;
+}
+
+.file-thumbnail {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.file-preview p {
+  margin: 0;
+  font-size: 1rem;
+  color: #f3f3f3;
+}
+
+.file-preview button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.thumb-name-wrap{
+  display: flex;
+  align-items: center;
 }

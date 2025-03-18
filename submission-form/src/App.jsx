@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useDropzone } from 'react-dropzone';
 import './App.css'; // Import the CSS file for styling
 import { supabase } from './supabaseClient'; // Import Supabase client
 
@@ -54,11 +55,17 @@ function App() {
     });
   };
 
-  const handleFileChange = (e) => {
-    const { name, files } = e.target;
+  const handleFileChange = (acceptedFiles, name) => {
     setFormData({
       ...formData,
-      [name]: files[0]
+      [name]: acceptedFiles[0]
+    });
+  };
+
+  const removeFile = (name) => {
+    setFormData({
+      ...formData,
+      [name]: null
     });
   };
 
@@ -151,6 +158,37 @@ function App() {
     return publicURL;
   };
 
+  const Dropzone = ({ onDrop, name }) => {
+    const onDropCallback = useCallback((acceptedFiles) => {
+      onDrop(acceptedFiles, name);
+    }, [onDrop, name]);
+
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+      onDrop: onDropCallback,
+      multiple: false
+    });
+
+    return (
+      <div {...getRootProps({ className: 'dropzone' })}>
+        <input {...getInputProps()} />
+        {isDragActive ? (
+          <p>Drop the files here ...</p>
+        ) : (
+          <p>Drag & drop some files here, or click to select files</p>
+        )}
+        {formData[name] && (
+          <div className="file-preview">
+            <div className="thumb-name-wrap">
+              <img src={URL.createObjectURL(formData[name])} alt="Preview" className="file-thumbnail" />
+              <p>{formData[name].name}</p>
+            </div>
+            <button type="button" onClick={(e) => { e.stopPropagation(); removeFile(name); }}>Remove</button>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className="form-wrap">
       <h1 className="headertext">Submission Form</h1>
@@ -169,7 +207,7 @@ function App() {
         {!userExists && step === 2 && (
           <div className={`form-group ${animationClass}`}>
             <label htmlFor="artistImage">Artist Image <sup>*For new applicants only</sup></label>
-            <input type="file" id="artistImage" name="artistImage" onChange={handleFileChange} />
+            <Dropzone onDrop={handleFileChange} name="artistImage" />
             <label htmlFor="artistPortfolioLink">Artist Portfolio Link <sup>*For new applicants only</sup></label>
             <input type="text" id="artistPortfolioLink" name="artistPortfolioLink" value={formData.artistPortfolioLink} onChange={handleChange} />
             <label htmlFor="artistSocialLink">Artist Social Link <sup>*For new applicants only</sup></label>
@@ -183,7 +221,7 @@ function App() {
         {step === 3 && (
           <div className={`form-group ${animationClass}`}>
             <label htmlFor="artworkImage">Artwork Image</label>
-            <input type="file" id="artworkImage" name="artworkImage" onChange={handleFileChange} />
+            <Dropzone onDrop={handleFileChange} name="artworkImage" />
             <label htmlFor="artworkTitle">Artwork Title</label>
             <input type="text" id="artworkTitle" name="artworkTitle" value={formData.artworkTitle} onChange={handleChange} />
             <label htmlFor="artworkDetails">Artwork Details</label>
