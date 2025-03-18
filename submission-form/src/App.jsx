@@ -206,7 +206,7 @@ function App() {
         )}
         {!userExists && step === 2 && (
           <div className={`form-group ${animationClass}`}>
-            <label htmlFor="artistImage">Artist Image <sup>*For new applicants only</sup></label>
+            <label htmlFor="artistImage">Artist Image <sup><sup>*Max file size 10MB </sup></sup></label>
             <Dropzone onDrop={handleFileChange} name="artistImage" />
             <label htmlFor="artistPortfolioLink">Artist Portfolio Link <sup>*For new applicants only</sup></label>
             <input type="text" id="artistPortfolioLink" name="artistPortfolioLink" value={formData.artistPortfolioLink} onChange={handleChange} />
@@ -220,7 +220,7 @@ function App() {
         )}
         {step === 3 && (
           <div className={`form-group ${animationClass}`}>
-            <label htmlFor="artworkImage">Artwork Image</label>
+            <label htmlFor="artworkImage">Artwork Image <sup>*Max file size 10MB </sup></label>
             <Dropzone onDrop={handleFileChange} name="artworkImage" />
             <label htmlFor="artworkTitle">Artwork Title</label>
             <input type="text" id="artworkTitle" name="artworkTitle" value={formData.artworkTitle} onChange={handleChange} />
@@ -236,9 +236,9 @@ function App() {
           <div className={`form-group ${animationClass}`}>
             <label htmlFor="artworkCategory">Artwork Category</label>
             <input type="text" id="artworkCategory" name="artworkCategory" value={formData.artworkCategory} onChange={handleChange} />
-            <label htmlFor="artworkPrice">Artwork Price</label>
+            <label htmlFor="artworkPrice">Artwork Price <sup>*GHC </sup></label>
             <input type="text" id="artworkPrice" name="artworkPrice" value={formData.artworkPrice} onChange={handleChange} />
-            <label htmlFor="artworkSize">Artwork Size</label>
+            <label htmlFor="artworkSize">Artwork Size <sup>*W x H inches</sup></label>
             <input type="text" id="artworkSize" name="artworkSize" value={formData.artworkSize} onChange={handleChange} />
             <div className="btn-wrap">
               <button type="button" className="btn" onClick={prevStep}>Back</button>
