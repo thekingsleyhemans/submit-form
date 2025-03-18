@@ -26,6 +26,7 @@ function App() {
   const [showAgreementModal, setShowAgreementModal] = useState(true);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [showReminder, setShowReminder] = useState(false);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const checkUserExists = async () => {
@@ -72,12 +73,36 @@ function App() {
     });
   };
 
+  const validateStep = () => {
+    const newErrors = {};
+    if (step === 1) {
+      if (!formData.artistName) newErrors.artistName = "Artist Name is required";
+      if (!formData.artistEmail) newErrors.artistEmail = "Artist Email is required";
+    } else if (step === 2) {
+      if (!formData.artistImage) newErrors.artistImage = "Artist Image is required";
+      if (!formData.artistPortfolioLink) newErrors.artistPortfolioLink = "Artist Portfolio Link is required";
+      if (!formData.artistSocialLink) newErrors.artistSocialLink = "Artist Social Link is required";
+    } else if (step === 3) {
+      if (!formData.artworkImage) newErrors.artworkImage = "Artwork Image is required";
+      if (!formData.artworkTitle) newErrors.artworkTitle = "Artwork Title is required";
+      if (!formData.artworkDetails) newErrors.artworkDetails = "Artwork Details are required";
+    } else if (step === 4) {
+      if (!formData.artworkCategory) newErrors.artworkCategory = "Artwork Category is required";
+      if (!formData.artworkPrice) newErrors.artworkPrice = "Artwork Price is required";
+      if (!formData.artworkSize) newErrors.artworkSize = "Artwork Size is required";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const nextStep = () => {
-    setAnimationClass("slide-in");
-    setTimeout(() => {
-      setStep(step + 1);
-      setAnimationClass("");
-    }, 500);
+    if (validateStep()) {
+      setAnimationClass("slide-in");
+      setTimeout(() => {
+        setStep(step + 1);
+        setAnimationClass("");
+      }, 500);
+    }
   };
 
   const prevStep = () => {
@@ -281,6 +306,7 @@ function App() {
                   value={formData.artistName}
                   onChange={handleChange}
                 />
+                {errors.artistName && <p style={{ color: "red" }}>{errors.artistName}</p>}
                 <label htmlFor="artistEmail">Artist Email</label>
                 <input
                   type="email"
@@ -289,6 +315,7 @@ function App() {
                   value={formData.artistEmail}
                   onChange={handleChange}
                 />
+                {errors.artistEmail && <p style={{ color: "red" }}>{errors.artistEmail}</p>}
                 <label htmlFor="artistAbout">
                   Artist About <sup>*For new applicants only</sup>
                 </label>
@@ -312,6 +339,7 @@ function App() {
                   </sup>
                 </label>
                 <Dropzone onDrop={handleFileChange} name="artistImage" />
+                {errors.artistImage && <p style={{ color: "red" }}>{errors.artistImage}</p>}
                 <label htmlFor="artistPortfolioLink">
                   Artist Portfolio Link <sup>*For new applicants only</sup>
                 </label>
@@ -322,6 +350,7 @@ function App() {
                   value={formData.artistPortfolioLink}
                   onChange={handleChange}
                 />
+                {errors.artistPortfolioLink && <p style={{ color: "red" }}>{errors.artistPortfolioLink}</p>}
                 <label htmlFor="artistSocialLink">
                   Artist Social Link <sup>*For new applicants only</sup>
                 </label>
@@ -332,6 +361,7 @@ function App() {
                   value={formData.artistSocialLink}
                   onChange={handleChange}
                 />
+                {errors.artistSocialLink && <p style={{ color: "red" }}>{errors.artistSocialLink}</p>}
                 <div className="btn-wrap">
                   <button type="button" className="btn" onClick={prevStep}>
                     Back
@@ -348,6 +378,7 @@ function App() {
                   Artwork Image <sup>*Max file size 10MB </sup>
                 </label>
                 <Dropzone onDrop={handleFileChange} name="artworkImage" />
+                {errors.artworkImage && <p style={{ color: "red" }}>{errors.artworkImage}</p>}
                 <label htmlFor="artworkTitle">Artwork Title</label>
                 <input
                   type="text"
@@ -356,6 +387,7 @@ function App() {
                   value={formData.artworkTitle}
                   onChange={handleChange}
                 />
+                {errors.artworkTitle && <p style={{ color: "red" }}>{errors.artworkTitle}</p>}
                 <label htmlFor="artworkDetails">Artwork Details</label>
                 <textarea
                   id="artworkDetails"
@@ -363,6 +395,7 @@ function App() {
                   value={formData.artworkDetails}
                   onChange={handleChange}
                 ></textarea>
+                {errors.artworkDetails && <p style={{ color: "red" }}>{errors.artworkDetails}</p>}
                 <div className="btn-wrap">
                   <button type="button" className="btn" onClick={prevStep}>
                     Back
@@ -383,6 +416,7 @@ function App() {
                   value={formData.artworkCategory}
                   onChange={handleChange}
                 />
+                {errors.artworkCategory && <p style={{ color: "red" }}>{errors.artworkCategory}</p>}
                 <label htmlFor="artworkPrice">
                   Artwork Price <sup>*GHC </sup>
                 </label>
@@ -393,6 +427,7 @@ function App() {
                   value={formData.artworkPrice}
                   onChange={handleChange}
                 />
+                {errors.artworkPrice && <p style={{ color: "red" }}>{errors.artworkPrice}</p>}
                 <label htmlFor="artworkSize">
                   Artwork Size <sup>*W x H inches</sup>
                 </label>
@@ -403,6 +438,7 @@ function App() {
                   value={formData.artworkSize}
                   onChange={handleChange}
                 />
+                {errors.artworkSize && <p style={{ color: "red" }}>{errors.artworkSize}</p>}
                 <div className="btn-wrap">
                   <button type="button" className="btn" onClick={prevStep}>
                     Back
